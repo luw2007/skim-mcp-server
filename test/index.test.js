@@ -75,9 +75,7 @@ async function testSkimAvailability() {
 
 			child.on("error", () => reject(new Error("Cannot spawn skim")));
 		}),
-		new Promise((_, reject) =>
-			setTimeout(() => reject(new Error("Timeout")), 5000),
-		),
+		new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), 5000)),
 	]);
 
 	if (!results) {

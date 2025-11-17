@@ -8,19 +8,16 @@
  *
  * Built on the Skim CLI by dean0x (https://github.com/dean0x/skim)
  *
- * @version 1.0.0
+ * @version 1.0.1
  * @license MIT
  * @author luw2007
  */
 
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import {
-	CallToolRequestSchema,
-	ListToolsRequestSchema,
-} from "@modelcontextprotocol/sdk/types.js";
+import { CallToolRequestSchema, ListToolsRequestSchema } from "@modelcontextprotocol/sdk/types.js";
 import { spawn } from "child_process";
-import { existsSync, lstatSync, realpathSync } from "fs";
+import { existsSync, realpathSync } from "fs";
 import { resolve, normalize, sep } from "path";
 import winston from "winston";
 
@@ -29,7 +26,7 @@ import winston from "winston";
 // ============================================================================
 
 const CONFIG = {
-	VERSION: "1.0.0",
+	VERSION: "1.0.1",
 	MAX_INPUT_SIZE: 10 * 1024 * 1024, // 10MB
 	MAX_BUFFER: 50 * 1024 * 1024, // 50MB
 	MAX_REQUESTS_PER_MINUTE: 10,
@@ -50,14 +47,11 @@ const logger = winston.createLogger({
 	format: winston.format.combine(
 		winston.format.timestamp(),
 		winston.format.errors({ stack: true }),
-		winston.format.json(),
+		winston.format.json()
 	),
 	transports: [
 		new winston.transports.Console({
-			format: winston.format.combine(
-				winston.format.colorize(),
-				winston.format.simple(),
-			),
+			format: winston.format.combine(winston.format.colorize(), winston.format.simple()),
 		}),
 	],
 	exitOnError: false,
@@ -88,9 +82,7 @@ class RateLimiter {
 		if (recentRequests.length >= this.maxRequests) {
 			return {
 				allowed: false,
-				retryAfter: Math.ceil(
-					(recentRequests[0] + this.windowMs - now) / 1000,
-				),
+				retryAfter: Math.ceil((recentRequests[0] + this.windowMs - now) / 1000),
 			};
 		}
 
@@ -103,7 +95,7 @@ class RateLimiter {
 
 const rateLimiter = new RateLimiter(
 	CONFIG.MAX_REQUESTS_PER_MINUTE,
-	CONFIG.MAX_REQUESTS_PER_MINUTE * 60000,
+	CONFIG.MAX_REQUESTS_PER_MINUTE * 60000
 );
 
 /**
@@ -128,14 +120,10 @@ function validatePath(inputPath) {
 	}
 
 	// Check against allowed base paths
-	const isAllowed = CONFIG.ALLOWED_BASE_PATHS.some((base) =>
-		resolved.startsWith(base),
-	);
+	const isAllowed = CONFIG.ALLOWED_BASE_PATHS.some((base) => resolved.startsWith(base));
 
 	if (!isAllowed) {
-		throw new Error(
-			`Path outside allowed directories: ${CONFIG.ALLOWED_BASE_PATHS.join(", ")}`,
-		);
+		throw new Error(`Path outside allowed directories: ${CONFIG.ALLOWED_BASE_PATHS.join(", ")}`);
 	}
 
 	// Verify path exists and is not a symlink (or resolves to allowed location)
@@ -145,9 +133,7 @@ function validatePath(inputPath) {
 
 	try {
 		const realPath = realpathSync(resolved);
-		const isRealPathAllowed = CONFIG.ALLOWED_BASE_PATHS.some((base) =>
-			realPath.startsWith(base),
-		);
+		const isRealPathAllowed = CONFIG.ALLOWED_BASE_PATHS.some((base) => realPath.startsWith(base));
 
 		if (!isRealPathAllowed) {
 			throw new Error("Resolved path outside allowed directories");
@@ -169,7 +155,7 @@ function validateSource(source) {
 
 	if (source.length > CONFIG.MAX_INPUT_SIZE) {
 		throw new Error(
-			`Source code too large: ${source.length} bytes (max: ${CONFIG.MAX_INPUT_SIZE})`,
+			`Source code too large: ${source.length} bytes (max: ${CONFIG.MAX_INPUT_SIZE})`
 		);
 	}
 
@@ -186,21 +172,10 @@ function validateSource(source) {
  * Validate language parameter
  */
 function validateLanguage(language) {
-	const allowed = [
-		"typescript",
-		"javascript",
-		"python",
-		"rust",
-		"go",
-		"java",
-		"json",
-		"markdown",
-	];
+	const allowed = ["typescript", "javascript", "python", "rust", "go", "java", "json", "markdown"];
 
 	if (!allowed.includes(language)) {
-		throw new Error(
-			`Invalid language: ${language}. Must be one of: ${allowed.join(", ")}`,
-		);
+		throw new Error(`Invalid language: ${language}. Must be one of: ${allowed.join(", ")}`);
 	}
 
 	return language;
@@ -213,9 +188,7 @@ function validateMode(mode) {
 	const allowed = ["structure", "signatures", "types", "full"];
 
 	if (!allowed.includes(mode)) {
-		throw new Error(
-			`Invalid mode: ${mode}. Must be one of: ${allowed.join(", ")}`,
-		);
+		throw new Error(`Invalid mode: ${mode}. Must be one of: ${allowed.join(", ")}`);
 	}
 
 	return mode;
@@ -228,11 +201,8 @@ function validateMode(mode) {
 /**
  * Execute skim command using spawn (parameterized, no shell injection)
  */
-function executeSkim(command, inputOrArgs = null, timeout = CONFIG.TIMEOUT) {
+function executeSkim(command, args = [], input = null, timeout = CONFIG.TIMEOUT) {
 	return new Promise((resolve, reject) => {
-		const args = Array.isArray(inputOrArgs) ? inputOrArgs : [];
-		const input = Array.isArray(inputOrArgs) ? null : inputOrArgs;
-
 		const child = spawn(command, args, { shell: false });
 
 		let stdout = "";
@@ -276,11 +246,7 @@ function executeSkim(command, inputOrArgs = null, timeout = CONFIG.TIMEOUT) {
 			clearTimeout(timeoutId);
 
 			if (code !== 0) {
-				reject(
-					new Error(
-						`Command failed with code ${code}: ${stderr || "Unknown error"}`,
-					),
-				);
+				reject(new Error(`Command failed with code ${code}: ${stderr || "Unknown error"}`));
 			} else {
 				resolve({ stdout, stderr });
 			}
@@ -304,7 +270,7 @@ async function runSkim(args, input = null) {
 
 	logger.debug("Executing skim", { path: skimPath, args: args.join(" ") });
 
-	return executeSkim(skimPath, input);
+	return executeSkim(skimPath, args, input);
 }
 
 /**
@@ -365,7 +331,7 @@ async function findSkim() {
 
 	throw new Error(
 		"skim not found. Install with: npm install -g rskim OR cargo install rskim\n" +
-		"Checked: ~/.cargo/bin/skim, ~/.npm/bin/skim, /usr/local/bin/skim, and PATH",
+			"Checked: ~/.cargo/bin/skim, ~/.npm/bin/skim, /usr/local/bin/skim, and PATH"
 	);
 }
 
@@ -382,7 +348,7 @@ const server = new Server(
 		capabilities: {
 			tools: {},
 		},
-	},
+	}
 );
 
 /**
@@ -444,8 +410,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
 					properties: {
 						path: {
 							type: "string",
-							description:
-								"File or directory path (absolute). Must be within workspace directory.",
+							description: "File or directory path (absolute). Must be within workspace directory.",
 						},
 						mode: {
 							type: "string",
@@ -561,13 +526,7 @@ async function handleSkimTransform(args) {
 	const validatedLanguage = validateLanguage(language);
 	const validatedMode = validateMode(mode);
 
-	const skimArgs = [
-		"-",
-		"--language",
-			validatedLanguage,
-		"--mode",
-			validatedMode,
-	];
+	const skimArgs = ["-", "--language", validatedLanguage, "--mode", validatedMode];
 
 	if (show_stats) {
 		skimArgs.push("--show-stats");
@@ -601,8 +560,7 @@ async function handleSkimTransform(args) {
  * Transform file or directory
  */
 async function handleSkimFile(args) {
-	const { path: filePath, mode = "structure", show_stats = true, no_header = false } =
-		args;
+	const { path: filePath, mode = "structure", show_stats = true, no_header = false } = args;
 
 	const validatedPath = validatePath(filePath);
 	const validatedMode = validateMode(mode);
