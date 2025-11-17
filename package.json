@@ -1,6 +1,6 @@
 {
   "name": "skim-mcp-server",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "MCP Server for Skim - Intelligent code compression for LLM context optimization",
   "type": "module",
   "main": "dist/index.js",
@@ -45,6 +45,7 @@
   "homepage": "https://github.com/luw2007/skim-mcp-server#readme",
   "files": [
     "dist/",
+    "scripts/",
     "README.md",
     "LICENSE",
     "CHANGELOG.md"

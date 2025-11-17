@@ -8,7 +8,7 @@
  *
  * Built on the Skim CLI by dean0x (https://github.com/dean0x/skim)
  *
- * @version 1.0.1
+ * @version 1.0.2
  * @license MIT
  * @author luw2007
  */
@@ -26,7 +26,7 @@ import winston from "winston";
 // ============================================================================
 
 const CONFIG = {
-	VERSION: "1.0.1",
+	VERSION: "1.0.2",
 	MAX_INPUT_SIZE: 10 * 1024 * 1024, // 10MB
 	MAX_BUFFER: 50 * 1024 * 1024, // 50MB
 	MAX_REQUESTS_PER_MINUTE: 10,
