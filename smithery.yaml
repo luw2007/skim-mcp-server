@@ -1,45 +1,11 @@
-# Smithery configuration file: https://smithery.ai/docs/config#smitheryyaml
-
-startCommand:
-  type: stdio
-  configSchema:
-    # JSON Schema defining the configuration options for the MCP.
-    type: object
-    properties:
-      logLevel:
-        type: string
-        enum: ["debug", "info", "warn", "error"]
-        description: Logging level for the MCP server. Default is 'info'.
-        default: "info"
-      allowedPaths:
-        type: string
-        description: Comma-separated list of allowed base paths for file operations. Default is the current working directory.
-      maxRequestsPerMinute:
-        type: number
-        description: Rate limit for requests per minute. Default is 10.
-        default: 10
-      maxInputSize:
-        type: number
-        description: Maximum input size in bytes. Default is 10MB (10485760 bytes).
-        default: 10485760
-  commandFunction:
-    # A JS function that produces the CLI command to start the MCP on stdio.
-    |-
-    (config) => {
-      const env = {};
-      if (config.logLevel) env.LOG_LEVEL = config.logLevel;
-      if (config.allowedPaths) env.SKIM_ALLOWED_PATHS = config.allowedPaths;
-      if (config.maxRequestsPerMinute) env.SKIM_MAX_REQUESTS_PER_MINUTE = config.maxRequestsPerMinute.toString();
-      if (config.maxInputSize) env.SKIM_MAX_INPUT_SIZE = config.maxInputSize.toString();
-      return {
-        command: 'npx',
-        args: ['-y', 'skim-mcp-server'],
-        env: env
-      };
-    }
-  exampleConfig:
-    logLevel: "info"
-    maxRequestsPerMinute: 10
-    maxInputSize: 10485760
+# Smithery configuration file for TypeScript runtime
+# Runtime mode uses npm package instead of custom Docker build
 
 runtime: "typescript"
+target: "dist/index.js"
+
+# Environment variables for configuration
+env:
+  LOG_LEVEL: "info"
+  SKIM_MAX_REQUESTS_PER_MINUTE: "10"
+  SKIM_MAX_INPUT_SIZE: "10485760"
