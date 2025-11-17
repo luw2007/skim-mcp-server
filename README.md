@@ -1,12 +1,60 @@
 # Skim MCP Server
 
 > 🚀 Production-ready Model Context Protocol server for Skim code transformation
+>
+> Built on top of [@dean0x](https://github.com/dean0x)'s [Skim](https://github.com/dean0x/skim) project
 
 [![Version](https://img.shields.io/npm/v/skim-mcp-server?style=flat-square)](https://www.npmjs.com/package/skim-mcp-server)
+[![Downloads](https://img.shields.io/npm/dm/skim-mcp-server?style=flat-square)](https://www.npmjs.com/package/skim-mcp-server)
 [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen?style=flat-square)](https://nodejs.org/)
 
+[![GitHub Stars](https://img.shields.io/github/stars/luw2007/skim-mcp-server?style=flat-square)](https://github.com/luw2007/skim-mcp-server/stargazers)
+[![GitHub Issues](https://img.shields.io/github/issues/luw2007/skim-mcp-server?style=flat-square)](https://github.com/luw2007/skim-mcp-server/issues)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/luw2007/skim-mcp-server/pulls)
+[![Last Commit](https://img.shields.io/github/last-commit/luw2007/skim-mcp-server?style=flat-square)](https://github.com/luw2007/skim-mcp-server/commits)
+
 Intelligently compress code for LLM context windows with built-in security, monitoring, and production features.
+
+---
+
+## 📑 Table of Contents
+
+- [🤔 What is This?](#-what-is-this-how-can-it-help-me)
+- [🌟 Features](#-features)
+- [📦 Installation](#-installation)
+- [🔧 Configuration](#-configuration)
+- [🚀 Usage](#-usage)
+- [🔒 Security Features](#-security-features)
+- [🧪 Testing](#-testing)
+- [📊 Performance](#-performance)
+- [📖 Documentation](#-documentation)
+- [🛠️ Development](#️-development)
+- [🐳 Docker](#-docker)
+- [❓ FAQ](#-frequently-asked-questions-beginners-must-read)
+- [🆘 Support](#-support)
+- [🔄 Changelog](#-changelog)
+- [🔮 Roadmap](#-roadmap)
+- [🙏 Acknowledgments](#-acknowledgments)
+
+---
+
+## 🤔 What is This? How Can It Help Me?
+
+**In Simple Terms:**
+
+If you're using **Claude Code** (an AI coding assistant), you may encounter "context too long" limitations when analyzing large code projects.
+
+**What Skim MCP Server Does:**
+- 📦 Automatically compresses code, preserving structure while reducing 60-95% of content
+- 🧠 Enables Claude Code to analyze larger projects
+- ⚡ Provides more accurate code suggestions and analysis
+
+**Prerequisites:**
+- ✅ You have [Claude Code](https://claude.ai/code) installed
+- ✅ Your computer has Node.js 18.0.0 or higher installed
+
+**Not sure if you need this?** If you frequently use Claude Code to analyze large codebases, this tool will be very helpful!
 
 ## 🌟 Features
 
@@ -63,11 +111,47 @@ npm install skim-mcp-server
 npm run install-skim
 ```
 
+### Verify Installation
+
+After installation, verify it was successful:
+
+```bash
+# Check if skim-mcp-server is available
+skim-mcp-server --version
+
+# Check Node.js version
+node --version  # Should be >= 18.0.0
+```
+
+If `skim-mcp-server` shows "command not found":
+
+```bash
+# Check globally installed packages
+npm list -g skim-mcp-server
+
+# Check npm global path
+npm config get prefix
+```
+
+You may need to add the npm global path to your system PATH.
+
 ## 🔧 Configuration
 
 ### Claude Code Settings
 
-Add to your Claude Code configuration (usually `~/.config/claude-code/config.json`):
+Locate and edit your Claude Code configuration file (depending on your operating system):
+
+**macOS / Linux:**
+- `~/.claude/config.json` (recommended, try this first)
+- or `~/.config/claude-code/config.json`
+
+**Windows:**
+- `C:\Users\YourUsername\.claude\config.json`
+- or `C:\Users\YourUsername\AppData\Roaming\claude-code\config.json`
+
+**If the file doesn't exist, create it.**
+
+Add the following configuration:
 
 ```json
 {
@@ -78,6 +162,8 @@ Add to your Claude Code configuration (usually `~/.config/claude-code/config.jso
   }
 }
 ```
+
+⚠️ **Important**: You must completely quit and restart Claude Code for the changes to take effect.
 
 ### Environment Variables
 
@@ -94,6 +180,26 @@ export SKIM_MAX_REQUESTS_PER_MINUTE=10
 # Input size limit
 export SKIM_MAX_INPUT_SIZE=10485760  # 10MB in bytes
 ```
+
+### Verify Configuration Success
+
+After configuring and restarting Claude Code, test it:
+
+1. Open Claude Code
+2. Type in the conversation:
+   ```
+   Help me analyze this project's code structure
+   ```
+3. Watch if Claude Code automatically uses the `mcp__skim__skim_analyze` tool
+
+**Success indicators:**
+- You'll see messages like "Using skim tool to analyze code..." in the conversation
+- Or see `skim_file` / `skim_analyze` calls in the tool invocation logs
+
+**If it doesn't work:**
+- Check if config file JSON format is valid (use [jsonlint.com](https://jsonlint.com/) to validate)
+- Confirm you completely quit and restarted Claude Code
+- Check Claude Code's log files for error messages
 
 ## 🚀 Usage
 
@@ -149,21 +255,45 @@ mcp__skim__skim_analyze({
 // 3. Analysis framework to guide Claude
 ```
 
-### Natural Usage
+### Real-World Usage Examples
 
-Claude Code automatically uses these tools when appropriate:
-
+**Scenario 1: Analyzing Project Architecture**
 ```
-User: "Analyze the architecture of src/"
- → Claude automatically calls skim_analyze
-   → Receives compressed code (60% smaller)
-     → Provides better analysis with full context
+You: "Help me analyze the code architecture in src/ directory"
 
-User: "Review this TypeScript function"
- → Claude automatically calls skim_transform
-   → Gets clean signature
-     → Provides focused review
+Claude Code:
+→ Automatically calls mcp__skim__skim_analyze
+→ Compresses code (65% token reduction)
+→ Quickly analyzes architecture and provides suggestions
+
+Result: Complete architecture analysis report
 ```
+
+**Scenario 2: Code Review**
+```
+You: "Review the code quality of src/auth.ts"
+
+Claude Code:
+→ Automatically calls mcp__skim__skim_file
+→ Extracts function signatures and key logic
+→ Provides detailed code review suggestions
+
+Result: Identifies potential issues and improvement suggestions
+```
+
+**Scenario 3: Understanding Large Files**
+```
+You: "What does this 3000-line file do?"
+
+Claude Code:
+→ Automatically calls mcp__skim__skim_transform
+→ Compresses to core structure (80% content reduction)
+→ Quickly understands main logic
+
+Result: Clear functional overview and workflow explanation
+```
+
+**Key Point: You don't need to manually invoke these tools - Claude Code will automatically decide when to use them!**
 
 ## 🔒 Security Features
 
@@ -370,6 +500,104 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guid
 5. Ensure linting passes
 6. Submit a pull request
 
+## ❓ Frequently Asked Questions (Beginners Must Read)
+
+### Installation
+
+**Q1: Getting "skim-mcp-server: command not found"**
+
+Reason: npm global install path is not in your system PATH.
+
+Solution:
+```bash
+# Method 1: Find the installation path
+npm config get prefix
+
+# Assuming it returns /usr/local, the full path would be:
+# /usr/local/bin/skim-mcp-server
+
+# Method 2: Use the full path in your config file
+{
+  "mcpServers": {
+    "skim": {
+      "command": "/usr/local/bin/skim-mcp-server"  # Replace with actual path
+    }
+  }
+}
+```
+
+**Q2: Node.js version incompatibility error**
+
+Check your version:
+```bash
+node --version
+```
+
+Must be >= 18.0.0. If your version is too old, visit [nodejs.org](https://nodejs.org/) to download the latest LTS version.
+
+---
+
+### Configuration
+
+**Q3: Can't find where the config file is**
+
+Try these locations in order:
+
+**macOS / Linux:**
+```bash
+# 1. Check this path first
+ls -la ~/.claude/config.json
+
+# 2. If it doesn't exist, check this
+ls -la ~/.config/claude-code/config.json
+
+# 3. If neither exists, create the first one
+mkdir -p ~/.claude
+echo '{"mcpServers":{}}' > ~/.claude/config.json
+```
+
+**Windows:**
+Search for `config.json` in File Explorer, or create it directly at:
+```
+C:\Users\YourUsername\.claude\config.json
+```
+
+**Q4: Configuration has no effect**
+
+Checklist:
+- [ ] Config file is valid JSON format (use [jsonlint.com](https://jsonlint.com/) to validate)
+- [ ] Completely quit Claude Code (not minimized, fully quit)
+- [ ] Restart Claude Code
+- [ ] `skim-mcp-server` command works in terminal
+- [ ] Check Claude Code logs for error messages
+
+---
+
+### Usage
+
+**Q5: When will the tool be automatically used?**
+
+Claude Code automatically uses Skim when:
+- Analyzing large code files or directories
+- Code review tasks
+- Architecture analysis requests
+- Understanding code structure
+
+You **don't need to manually invoke it** - Claude Code will automatically decide when to use it.
+
+**Q6: How do I know Skim is working?**
+
+Watch Claude Code's conversation window for:
+- Tool invocation messages: `mcp__skim__skim_file` or `mcp__skim__skim_analyze`
+- Token statistics
+- Messages like "Compressing code..." or similar
+
+This indicates Skim is working.
+
+**Q7: Will Skim modify my code?**
+
+**No!** Skim only reads and compresses code for analysis - **it will not modify any source files**.
+
 ## 🆘 Support
 
 ### Reporting Issues
@@ -411,10 +639,24 @@ See [CHANGELOG.md](CHANGELOG.md) for version history.
 
 ## 🙏 Acknowledgments
 
-- [Model Context Protocol](https://modelcontextprotocol.io/)
-- [tree-sitter](https://tree-sitter.github.io/)
-- [Skim](https://github.com/dean0x/skim) - The upstream Skim project by dean0x
-- Claude Code team
+### Special Thanks
+
+**[Skim](https://github.com/dean0x/skim) Project and its Author [@dean0x](https://github.com/dean0x)**
+
+This project is an MCP server wrapper built on top of the excellent Skim project created by dean0x. Skim is a powerful code transformation tool written in Rust that provides intelligent code compression capabilities for LLMs.
+
+- **Original Project**: https://github.com/dean0x/skim
+- **Core Technology**: Rust + tree-sitter
+- **Contribution**: Provides 60-95% code compression capability
+
+Without dean0x's outstanding work, this MCP server wouldn't exist. We highly recommend visiting the original project to learn more about the technical details!
+
+### Other Acknowledgments
+
+- [Model Context Protocol](https://modelcontextprotocol.io/) - MCP protocol specification
+- [tree-sitter](https://tree-sitter.github.io/) - Code parsing engine
+- [Claude Code](https://claude.ai/code) team - For providing an excellent AI coding assistant platform
+- All developers who have contributed to this project
 
 ---
 
