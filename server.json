@@ -2,7 +2,7 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-10-17/server.schema.json",
   "name": "io.github.luw2007/skim-mcp-server",
   "title": "Skim MCP Server",
-  "description": "Production-ready Model Context Protocol server for Skim code transformation. Intelligently compresses code for LLM context windows with 60-95% token reduction, built on dean0x's Skim project.",
+  "description": "MCP server for Skim code transformation. Compresses code 60-95% for LLM context optimization.",
   "version": "1.0.2",
   "homepage": "https://github.com/luw2007/skim-mcp-server",
   "license": "MIT",
