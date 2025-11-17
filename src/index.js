@@ -20,6 +20,7 @@ import { spawn } from "child_process";
 import { existsSync, realpathSync } from "fs";
 import { resolve, normalize, sep } from "path";
 import winston from "winston";
+import { SKIM_COMMON_PATHS } from "./constants.js";
 
 // ============================================================================
 // CONFIGURATION & CONSTANTS
@@ -30,6 +31,7 @@ const CONFIG = {
 	MAX_INPUT_SIZE: 10 * 1024 * 1024, // 10MB
 	MAX_BUFFER: 50 * 1024 * 1024, // 50MB
 	MAX_REQUESTS_PER_MINUTE: 10,
+	RATE_LIMIT_WINDOW_MS: 60000, // 1 minute
 	TIMEOUT: 30000, // 30 seconds
 	ALLOWED_BASE_PATHS: [process.cwd()],
 	SKIM_COMMANDS: {
@@ -93,10 +95,7 @@ class RateLimiter {
 	}
 }
 
-const rateLimiter = new RateLimiter(
-	CONFIG.MAX_REQUESTS_PER_MINUTE,
-	CONFIG.MAX_REQUESTS_PER_MINUTE * 60000
-);
+const rateLimiter = new RateLimiter(CONFIG.MAX_REQUESTS_PER_MINUTE, CONFIG.RATE_LIMIT_WINDOW_MS);
 
 /**
  * Validate and sanitize file path
@@ -274,7 +273,6 @@ async function runSkim(args, input = null) {
 }
 
 /**
-/**
  * Find skim executable in PATH
  * Enhanced to properly search system PATH and common installation locations
  */
@@ -297,25 +295,14 @@ async function findSkim() {
 
 	// Method 2: Check common installation paths using fs.access
 	logger.debug("Checking common installation paths directly");
-	const commonPaths = [
-		"/usr/local/bin/skim",
-		"/usr/bin/skim",
-		"/bin/skim",
-		`${process.env.HOME}/.cargo/bin/skim`,
-		`${process.env.HOME}/.npm/bin/skim`,
-		`${process.env.HOME}/.npm-global/bin/skim`,
-		`${process.env.HOME}/.local/bin/skim`,
-		`/opt/homebrew/bin/skim`, // Homebrew on macOS ARM
-	];
 
-	for (const path of commonPaths) {
+	for (const path of SKIM_COMMON_PATHS) {
 		try {
 			await access(path, constants.X_OK);
 			logger.info("Found skim at common path", { path });
 			return path;
 		} catch {
-			// Not found, continue
-			continue;
+			// Not found, continue to next path
 		}
 	}
 

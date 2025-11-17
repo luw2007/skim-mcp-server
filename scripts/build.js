@@ -27,6 +27,9 @@ async function main() {
         await copyFile(join(srcDir, "index.js"), join(distDir, "index.js"));
         console.log("✅ Copied index.js to dist");
 
+        await copyFile(join(srcDir, "constants.js"), join(distDir, "constants.js"));
+        console.log("✅ Copied constants.js to dist");
+
         // Make executable (on Unix-like systems)
         if (process.platform !== "win32") {
             const { exec } = await import("child_process");

@@ -10,19 +10,12 @@ import { exec } from "child_process";
 import { promisify } from "util";
 import { access } from "fs/promises";
 import { constants } from "fs";
+import { SKIM_COMMON_PATHS } from "../src/constants.js";
 
 const execAsync = promisify(exec);
 
-const SKIM_PATHS = [
-    "/usr/local/bin/skim",
-    "/usr/bin/skim",
-    `${process.env.HOME}/.cargo/bin/skim`,
-    `${process.env.HOME}/.npm/bin/skim`,
-    `${process.env.HOME}/.local/bin/skim`,
-];
-
 async function findSkim() {
-    for (const path of SKIM_PATHS) {
+    for (const path of SKIM_COMMON_PATHS) {
         try {
             await access(path, constants.X_OK);
             return path;
