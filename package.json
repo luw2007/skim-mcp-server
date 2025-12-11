@@ -1,6 +1,6 @@
 {
   "name": "skim-mcp-server",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "MCP Server for Skim - Intelligent code compression for LLM context optimization",
   "mcpName": "io.github.luw2007/skim-mcp-server",
   "type": "module",
@@ -72,7 +72,7 @@
     "prettier": "^3.2.5"
   },
   "peerDependencies": {
-    "rskim": "^0.7.0"
+    "rskim": "^0.8.0"
   },
   "peerDependenciesMeta": {
     "rskim": {

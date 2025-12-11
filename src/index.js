@@ -171,7 +171,7 @@ function validateSource(source) {
  * Validate language parameter
  */
 function validateLanguage(language) {
-	const allowed = ["typescript", "javascript", "python", "rust", "go", "java", "json", "markdown"];
+	const allowed = ["typescript", "javascript", "python", "rust", "go", "java", "json", "markdown", "yaml", "yml"];
 
 	if (!allowed.includes(language)) {
 		throw new Error(`Invalid language: ${language}. Must be one of: ${allowed.join(", ")}`);

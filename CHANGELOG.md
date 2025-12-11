@@ -18,6 +18,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [1.0.4] - 2025-12-11
+
+### Changed
+- Upgraded skim CLI dependency from v0.7.0 to v0.8.0
+- Updated peerDependencies to require rskim ^0.8.0
+
+### Added
+- YAML language support (yaml, yml file extensions)
+- YAML structure extraction with 60-80% token reduction
+- Documentation updates for YAML support
+
 ## [1.0.0] - 2024-11-17
 
 ### Added

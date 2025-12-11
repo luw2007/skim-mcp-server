@@ -136,7 +136,7 @@ The Skim CLI supports four modes affecting token reduction:
 | **types** | 90-95% | Type system analysis | Type definitions only |
 | **full** | 0% | Debug/validation | Original code (no transformation) |
 
-Supported languages: TypeScript, JavaScript, Python, Rust, Go, Java, JSON, Markdown
+Supported languages: TypeScript, JavaScript, Python, Rust, Go, Java, JSON, Markdown, YAML
 
 ## Deployment and Environment
 

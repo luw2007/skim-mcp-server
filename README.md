@@ -389,6 +389,7 @@ skim transform - 5ms (48x faster)
 - Java
 - JSON (special structure mode)
 - Markdown (header extraction)
+- YAML / YML (structure extraction)
 
 ### CLI Reference
 
