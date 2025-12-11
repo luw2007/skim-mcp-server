@@ -18,6 +18,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [1.1.2] - 2025-12-11
+
+### Fixed
+- **Critical**: Fixed server startup detection using fileURLToPath and realpathSync
+- Server now correctly starts when run directly (was broken due to path comparison bug)
+- Handles symlink paths correctly (e.g., /tmp vs /private/tmp on macOS)
+- Tests still pass and server behavior is preserved
+
 ## [1.1.1] - 2025-12-11
 
 ### Fixed
