@@ -18,6 +18,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [1.1.0] - 2025-12-11
+
+### Changed
+- **Major dependency upgrades:**
+  - Upgraded @modelcontextprotocol/sdk from 0.5.0 to 1.24.3 (MCP spec 2025-11-25)
+  - Upgraded winston from 3.18.3 to 3.19.0
+  - Upgraded prettier from 3.6.2 to 3.7.4
+  - Upgraded c8 from 9.1.0 to 10.1.3
+  - Upgraded eslint-config-prettier from 9.1.2 to 10.1.8
+
+### Fixed
+- Fixed server hanging issue during module import (tests now exit properly)
+- Server now only starts when run directly, not when imported as a module
+
 ## [1.0.4] - 2025-12-11
 
 ### Changed
