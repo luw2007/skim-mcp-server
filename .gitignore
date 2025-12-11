@@ -38,3 +38,7 @@ Desktop.ini
 
 # MCP Registry tokens
 .mcpregistry_*
+
+# npm pack temporary files
+package/
+*.tgz
