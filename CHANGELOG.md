@@ -18,6 +18,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [1.1.1] - 2025-12-11
+
+### Fixed
+- Fixed install-skim.js import path to use dist/constants.js instead of src/constants.js
+- This fixes the postinstall script failure when installing from npm
+
 ## [1.1.0] - 2025-12-11
 
 ### Changed

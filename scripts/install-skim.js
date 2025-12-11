@@ -10,7 +10,7 @@ import { exec } from "child_process";
 import { promisify } from "util";
 import { access } from "fs/promises";
 import { constants } from "fs";
-import { SKIM_COMMON_PATHS } from "../src/constants.js";
+import { SKIM_COMMON_PATHS } from "../dist/constants.js";
 
 const execAsync = promisify(exec);
 
