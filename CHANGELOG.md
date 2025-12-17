@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+### Changed
+
+### Fixed
+
+### Security
+
+## [2.0.0] - 2025-12-17
+
 ### Changed
 - **Breaking**: Renamed package from `skim-mcp-server` to `skim-mcp` for shorter, cleaner naming
 - **Breaking**: Renamed GitHub repository from `luw2007/skim-mcp-server` to `luw2007/skim-mcp`
@@ -19,15 +29,6 @@ If you're upgrading from `skim-mcp-server`:
 1. Update your `config.json`: change `"skim": {"command": "skim-mcp-server"}` to `"skim_mcp": {"command": "skim-mcp"}`
 2. Uninstall the old package: `npm uninstall -g skim-mcp-server`
 3. Install the new package: `npm install -g skim-mcp`
-
-### Added
-- Support for nested directory transformation
-- Custom transformation rule plugins
-- Performance metrics collection
-
-### Changed
-
-### Fixed
 
 ### Security
 
