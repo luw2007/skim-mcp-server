@@ -16,7 +16,7 @@ const srcDir = join(projectRoot, "src");
 const distDir = join(projectRoot, "dist");
 
 async function main() {
-    console.log("🔨 Building skim-mcp-server...");
+    console.log("🔨 Building skim-mcp...");
 
     try {
         // Create dist directory

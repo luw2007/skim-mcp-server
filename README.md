@@ -4,15 +4,15 @@
 >
 > Built on top of [@dean0x](https://github.com/dean0x)'s [Skim](https://github.com/dean0x/skim) project
 
-[![Version](https://img.shields.io/npm/v/skim-mcp-server?style=flat-square)](https://www.npmjs.com/package/skim-mcp-server)
-[![Downloads](https://img.shields.io/npm/dm/skim-mcp-server?style=flat-square)](https://www.npmjs.com/package/skim-mcp-server)
+[![Version](https://img.shields.io/npm/v/skim-mcp?style=flat-square)](https://www.npmjs.com/package/skim-mcp)
+[![Downloads](https://img.shields.io/npm/dm/skim-mcp?style=flat-square)](https://www.npmjs.com/package/skim-mcp)
 [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen?style=flat-square)](https://nodejs.org/)
 
-[![GitHub Stars](https://img.shields.io/github/stars/luw2007/skim-mcp-server?style=flat-square)](https://github.com/luw2007/skim-mcp-server/stargazers)
-[![GitHub Issues](https://img.shields.io/github/issues/luw2007/skim-mcp-server?style=flat-square)](https://github.com/luw2007/skim-mcp-server/issues)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/luw2007/skim-mcp-server/pulls)
-[![Last Commit](https://img.shields.io/github/last-commit/luw2007/skim-mcp-server?style=flat-square)](https://github.com/luw2007/skim-mcp-server/commits)
+[![GitHub Stars](https://img.shields.io/github/stars/luw2007/skim-mcp?style=flat-square)](https://github.com/luw2007/skim-mcp/stargazers)
+[![GitHub Issues](https://img.shields.io/github/issues/luw2007/skim-mcp?style=flat-square)](https://github.com/luw2007/skim-mcp/issues)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/luw2007/skim-mcp/pulls)
+[![Last Commit](https://img.shields.io/github/last-commit/luw2007/skim-mcp?style=flat-square)](https://github.com/luw2007/skim-mcp/commits)
 
 Intelligently compress code for LLM context windows with built-in security, monitoring, and production features.
 
@@ -77,7 +77,7 @@ If you're using **Claude Code** (an AI coding assistant), you may encounter "con
 
 ```bash
 # Install both MCP server and Skim CLI
-npm install -g skim-mcp-server
+npm install -g skim-mcp
 
 # Or install skim CLI separately
 npm install -g rskim
@@ -87,14 +87,14 @@ npm install -g rskim
 
 ```bash
 # In your project directory
-npm install skim-mcp-server
+npm install skim-mcp
 ```
 
 ### Option 3: From Source
 
 ```bash
-git clone https://github.com/luw2007/skim-mcp-server.git
-cd skim-mcp-server
+git clone https://github.com/luw2007/skim-mcp.git
+cd skim-mcp
 npm install
 npm run build
 ```
@@ -105,7 +105,7 @@ The server automatically installs Skim CLI if not found:
 
 ```bash
 # During npm install (postinstall hook)
-npm install skim-mcp-server
+npm install skim-mcp
 
 # Or manually
 npm run install-skim
@@ -116,18 +116,18 @@ npm run install-skim
 After installation, verify it was successful:
 
 ```bash
-# Check if skim-mcp-server is available
-skim-mcp-server --version
+# Check if skim-mcp is available
+skim-mcp --version
 
 # Check Node.js version
 node --version  # Should be >= 18.0.0
 ```
 
-If `skim-mcp-server` shows "command not found":
+If `skim-mcp` shows "command not found":
 
 ```bash
 # Check globally installed packages
-npm list -g skim-mcp-server
+npm list -g skim-mcp
 
 # Check npm global path
 npm config get prefix
@@ -156,8 +156,8 @@ Add the following configuration:
 ```json
 {
   "mcpServers": {
-    "skim": {
-      "command": "skim-mcp-server"
+    "skim_mcp": {
+      "command": "skim-mcp"
     }
   }
 }
@@ -412,8 +412,8 @@ skim --clear-cache
 ### Setup
 
 ```bash
-git clone https://github.com/luw2007/skim-mcp-server.git
-cd skim-mcp-server
+git clone https://github.com/luw2007/skim-mcp.git
+cd skim-mcp
 npm install
 ```
 
@@ -439,7 +439,7 @@ npm run build
 ### Project Structure
 
 ```
-skim-mcp-server/
+skim-mcp/
 ├── src/
 │   └── index.js          # Main server
 ├── test/
@@ -458,7 +458,7 @@ skim-mcp-server/
 ### Build Image
 
 ```bash
-docker build -t skim-mcp-server .
+docker build -t skim-mcp .
 ```
 
 ### Run Container
@@ -467,7 +467,7 @@ docker build -t skim-mcp-server .
 docker run -i --rm \
   -e LOG_LEVEL=info \
   -v /workspace:/workspace \
-  skim-mcp-server
+  skim-mcp
 ```
 
 ### Docker Compose
@@ -476,7 +476,7 @@ docker run -i --rm \
 version: '3.8'
 services:
   skim-mcp:
-    image: skim-mcp-server
+    image: skim-mcp
     environment:
       - LOG_LEVEL=info
       - SKIM_ALLOWED_PATHS=/workspace
@@ -505,7 +505,7 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guid
 
 ### Installation
 
-**Q1: Getting "skim-mcp-server: command not found"**
+**Q1: Getting "skim-mcp: command not found"**
 
 Reason: npm global install path is not in your system PATH.
 
@@ -515,13 +515,13 @@ Solution:
 npm config get prefix
 
 # Assuming it returns /usr/local, the full path would be:
-# /usr/local/bin/skim-mcp-server
+# /usr/local/bin/skim-mcp
 
 # Method 2: Use the full path in your config file
 {
   "mcpServers": {
-    "skim": {
-      "command": "/usr/local/bin/skim-mcp-server"  # Replace with actual path
+    "skim_mcp": {
+      "command": "/usr/local/bin/skim-mcp"  # Replace with actual path
     }
   }
 }
@@ -569,7 +569,7 @@ Checklist:
 - [ ] Config file is valid JSON format (use [jsonlint.com](https://jsonlint.com/) to validate)
 - [ ] Completely quit Claude Code (not minimized, fully quit)
 - [ ] Restart Claude Code
-- [ ] `skim-mcp-server` command works in terminal
+- [ ] `skim-mcp` command works in terminal
 - [ ] Check Claude Code logs for error messages
 
 ---
@@ -603,7 +603,7 @@ This indicates Skim is working.
 
 ### Reporting Issues
 
-Please report issues on [GitHub Issues](https://github.com/luw2007/skim-mcp-server/issues).
+Please report issues on [GitHub Issues](https://github.com/luw2007/skim-mcp/issues).
 
 Include:
 - Node.js version (`node --version`)
@@ -615,7 +615,7 @@ Include:
 
 - 📖 Documentation: [docs/](docs/)
 - 💡 Examples: [docs/examples.md](docs/examples.md)
-- 💬 Discussions: [GitHub Discussions](https://github.com/dean0x/skim-mcp-server/discussions)
+- 💬 Discussions: [GitHub Discussions](https://github.com/dean0x/skim-mcp/discussions)
 
 ## 🔄 Changelog
 

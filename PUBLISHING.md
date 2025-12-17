@@ -7,7 +7,7 @@ This guide covers how to publish the Skim MCP Server to the official MCP Registr
 ✅ **Already Completed:**
 - `server.json` file created with MCP Registry metadata
 - `package.json` updated with `mcpName` field
-- Package published to npm: https://www.npmjs.com/package/skim-mcp-server
+- Package published to npm: https://www.npmjs.com/package/skim-mcp
 
 ## 🚀 Publishing to MCP Registry (Official)
 
@@ -45,7 +45,7 @@ This will authenticate using your GitHub account and authorize publishing under 
 
 ```bash
 # Navigate back to your project directory
-cd /path/to/skim-mcp-server
+cd /path/to/skim-mcp
 
 # Publish using the MCP publisher CLI
 /path/to/registry/bin/mcp-publisher publish server.json
@@ -55,7 +55,7 @@ cd /path/to/skim-mcp-server
 
 After successful publication:
 - Check the MCP Registry: https://registry.modelcontextprotocol.io/
-- Search for "skim-mcp-server" or "io.github.luw2007/skim-mcp-server"
+- Search for "skim-mcp" or "io.github.luw2007/skim-mcp"
 - Verify metadata is correct
 
 ### Alternative: Manual PR Submission
@@ -97,7 +97,7 @@ Smithery provides distribution, hosting, and monitoring for MCP servers with ove
 
 2. **Click "Continue with GitHub"**
    - Authorize Smithery to access your repository
-   - Select the `luw2007/skim-mcp-server` repository
+   - Select the `luw2007/skim-mcp` repository
 
 3. **Configure Deployment**
    - Choose deployment type:
@@ -111,7 +111,7 @@ Smithery provides distribution, hosting, and monitoring for MCP servers with ove
    - Click "Publish"
 
 5. **Verify Deployment**
-   - Your server will appear at: `https://smithery.ai/server/io.github.luw2007/skim-mcp-server`
+   - Your server will appear at: `https://smithery.ai/server/io.github.luw2007/skim-mcp`
    - Test using the built-in playground
 
 #### Method 2: Smithery CLI
@@ -124,7 +124,7 @@ npm install -g @smithery/cli
 smithery login
 
 # Deploy your server
-cd /path/to/skim-mcp-server
+cd /path/to/skim-mcp
 smithery deploy .
 ```
 
@@ -151,7 +151,7 @@ After publishing:
 
 | Platform | Status | URL | Users |
 |----------|--------|-----|-------|
-| **npm** | ✅ Published | https://www.npmjs.com/package/skim-mcp-server | Direct installs |
+| **npm** | ✅ Published | https://www.npmjs.com/package/skim-mcp | Direct installs |
 | **MCP Registry** | ⏳ Pending | https://registry.modelcontextprotocol.io/ | All MCP clients |
 | **Smithery** | ⏳ Pending | https://smithery.ai/new | 10,000+ users |
 
@@ -226,7 +226,7 @@ smithery logs
 
 - **MCP Registry**: https://github.com/modelcontextprotocol/registry/issues
 - **Smithery**: https://smithery.ai/docs or support@smithery.ai
-- **This Project**: https://github.com/luw2007/skim-mcp-server/issues
+- **This Project**: https://github.com/luw2007/skim-mcp/issues
 
 ---
 

@@ -1,12 +1,12 @@
 {
-  "name": "skim-mcp-server",
+  "name": "skim-mcp",
   "version": "1.1.2",
   "description": "MCP Server for Skim - Intelligent code compression for LLM context optimization",
-  "mcpName": "io.github.luw2007/skim-mcp-server",
+  "mcpName": "io.github.luw2007/skim_mcp",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
-    "skim-mcp-server": "./dist/index.js"
+    "skim-mcp": "./dist/index.js"
   },
   "scripts": {
     "build": "node scripts/build.js",
@@ -38,12 +38,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/luw2007/skim-mcp-server.git"
+    "url": "https://github.com/luw2007/skim-mcp.git"
   },
   "bugs": {
-    "url": "https://github.com/luw2007/skim-mcp-server/issues"
+    "url": "https://github.com/luw2007/skim-mcp/issues"
   },
-  "homepage": "https://github.com/luw2007/skim-mcp-server#readme",
+  "homepage": "https://github.com/luw2007/skim-mcp#readme",
   "files": [
     "dist/",
     "scripts/",

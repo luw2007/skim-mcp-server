@@ -1,12 +1,12 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-10-17/server.schema.json",
-  "name": "io.github.luw2007/skim-mcp-server",
+  "name": "io.github.luw2007/skim_mcp",
   "title": "Skim MCP Server",
   "description": "MCP server for Skim code transformation. Compresses code 60-95% for LLM context optimization.",
   "version": "1.0.3",
-  "homepage": "https://github.com/luw2007/skim-mcp-server",
+  "homepage": "https://github.com/luw2007/skim-mcp",
   "license": "MIT",
-  "sourceCode": "https://github.com/luw2007/skim-mcp-server",
+  "sourceCode": "https://github.com/luw2007/skim-mcp",
   "vendor": {
     "name": "luw2007",
     "url": "https://github.com/luw2007"
@@ -14,7 +14,7 @@
   "packages": [
     {
       "registryType": "npm",
-      "identifier": "skim-mcp-server",
+      "identifier": "skim-mcp",
       "version": "1.0.3",
       "transport": {
         "type": "stdio"

@@ -4,15 +4,15 @@
 >
 > 基于 [@dean0x](https://github.com/dean0x) 的 [Skim](https://github.com/dean0x/skim) 项目开发
 
-[![版本](https://img.shields.io/npm/v/skim-mcp-server?style=flat-square)](https://www.npmjs.com/package/skim-mcp-server)
-[![下载量](https://img.shields.io/npm/dm/skim-mcp-server?style=flat-square)](https://www.npmjs.com/package/skim-mcp-server)
+[![版本](https://img.shields.io/npm/v/skim-mcp?style=flat-square)](https://www.npmjs.com/package/skim-mcp)
+[![下载量](https://img.shields.io/npm/dm/skim-mcp?style=flat-square)](https://www.npmjs.com/package/skim-mcp)
 [![许可证](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen?style=flat-square)](https://nodejs.org/)
 
-[![GitHub Stars](https://img.shields.io/github/stars/luw2007/skim-mcp-server?style=flat-square)](https://github.com/luw2007/skim-mcp-server/stargazers)
-[![GitHub Issues](https://img.shields.io/github/issues/luw2007/skim-mcp-server?style=flat-square)](https://github.com/luw2007/skim-mcp-server/issues)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/luw2007/skim-mcp-server/pulls)
-[![Last Commit](https://img.shields.io/github/last-commit/luw2007/skim-mcp-server?style=flat-square)](https://github.com/luw2007/skim-mcp-server/commits)
+[![GitHub Stars](https://img.shields.io/github/stars/luw2007/skim-mcp?style=flat-square)](https://github.com/luw2007/skim-mcp/stargazers)
+[![GitHub Issues](https://img.shields.io/github/issues/luw2007/skim-mcp?style=flat-square)](https://github.com/luw2007/skim-mcp/issues)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/luw2007/skim-mcp/pulls)
+[![Last Commit](https://img.shields.io/github/last-commit/luw2007/skim-mcp?style=flat-square)](https://github.com/luw2007/skim-mcp/commits)
 
 智能地为 LLM 上下文窗口压缩代码，内置安全性、监控和生产级功能。
 
@@ -77,7 +77,7 @@
 
 ```bash
 # 安装 MCP 服务器和 Skim CLI
-npm install -g skim-mcp-server
+npm install -g skim-mcp
 
 # 或单独安装 skim CLI
 npm install -g rskim
@@ -87,14 +87,14 @@ npm install -g rskim
 
 ```bash
 # 在你的项目目录中
-npm install skim-mcp-server
+npm install skim-mcp
 ```
 
 ### 选项 3: 从源码安装
 
 ```bash
-git clone https://github.com/luw2007/skim-mcp-server.git
-cd skim-mcp-server
+git clone https://github.com/luw2007/skim-mcp.git
+cd skim-mcp
 npm install
 npm run build
 ```
@@ -105,7 +105,7 @@ npm run build
 
 ```bash
 # 在 npm install 期间（postinstall 钩子）
-npm install skim-mcp-server
+npm install skim-mcp
 
 # 或手动安装
 npm run install-skim
@@ -116,18 +116,18 @@ npm run install-skim
 安装完成后，验证是否成功：
 
 ```bash
-# 检查 skim-mcp-server 是否可用
-skim-mcp-server --version
+# 检查 skim-mcp 是否可用
+skim-mcp --version
 
 # 检查 Node.js 版本
 node --version  # 应该 >= 18.0.0
 ```
 
-如果 `skim-mcp-server` 提示"命令未找到"：
+如果 `skim-mcp` 提示"命令未找到"：
 
 ```bash
 # 查看全局安装的包
-npm list -g skim-mcp-server
+npm list -g skim-mcp
 
 # 查看 npm 全局路径
 npm config get prefix
@@ -156,8 +156,8 @@ npm config get prefix
 ```json
 {
   "mcpServers": {
-    "skim": {
-      "command": "skim-mcp-server"
+    "skim_mcp": {
+      "command": "skim-mcp"
     }
   }
 }
@@ -411,8 +411,8 @@ skim --clear-cache
 ### 设置
 
 ```bash
-git clone https://github.com/luw2007/skim-mcp-server.git
-cd skim-mcp-server
+git clone https://github.com/luw2007/skim-mcp.git
+cd skim-mcp
 npm install
 ```
 
@@ -438,7 +438,7 @@ npm run build
 ### 项目结构
 
 ```
-skim-mcp-server/
+skim-mcp/
 ├── src/
 │   └── index.js          # 主服务器
 ├── test/
@@ -457,7 +457,7 @@ skim-mcp-server/
 ### 构建镜像
 
 ```bash
-docker build -t skim-mcp-server .
+docker build -t skim-mcp .
 ```
 
 ### 运行容器
@@ -466,7 +466,7 @@ docker build -t skim-mcp-server .
 docker run -i --rm \
   -e LOG_LEVEL=info \
   -v /workspace:/workspace \
-  skim-mcp-server
+  skim-mcp
 ```
 
 ### Docker Compose
@@ -475,7 +475,7 @@ docker run -i --rm \
 version: '3.8'
 services:
   skim-mcp:
-    image: skim-mcp-server
+    image: skim-mcp
     environment:
       - LOG_LEVEL=info
       - SKIM_ALLOWED_PATHS=/workspace
@@ -504,7 +504,7 @@ MIT 许可证 - 详见 [LICENSE](LICENSE) 文件
 
 ### 安装相关
 
-**Q1: 提示 "skim-mcp-server: command not found"**
+**Q1: 提示 "skim-mcp: command not found"**
 
 原因：npm 全局安装路径不在系统 PATH 中。
 
@@ -514,13 +514,13 @@ MIT 许可证 - 详见 [LICENSE](LICENSE) 文件
 npm config get prefix
 
 # 假设返回 /usr/local，则完整路径是：
-# /usr/local/bin/skim-mcp-server
+# /usr/local/bin/skim-mcp
 
 # 方法 2：在配置文件中使用完整路径
 {
   "mcpServers": {
-    "skim": {
-      "command": "/usr/local/bin/skim-mcp-server"  # 替换为实际路径
+    "skim_mcp": {
+      "command": "/usr/local/bin/skim-mcp"  # 替换为实际路径
     }
   }
 }
@@ -568,7 +568,7 @@ C:\Users\你的用户名\.claude\config.json
 - [ ] 配置文件是合法的 JSON 格式（使用 [jsonlint.com](https://jsonlint.com/) 验证）
 - [ ] 已完全退出 Claude Code（不是最小化，是完全退出）
 - [ ] 重新启动 Claude Code
-- [ ] `skim-mcp-server` 命令在终端中可以运行
+- [ ] `skim-mcp` 命令在终端中可以运行
 - [ ] 检查 Claude Code 日志是否有错误信息
 
 ---
@@ -602,7 +602,7 @@ Claude Code 在以下情况会自动使用 Skim：
 
 ### 报告问题
 
-请在 [GitHub Issues](https://github.com/luw2007/skim-mcp-server/issues) 报告问题。
+请在 [GitHub Issues](https://github.com/luw2007/skim-mcp/issues) 报告问题。
 
 包含信息：
 - Node.js 版本 (`node --version`)
@@ -614,7 +614,7 @@ Claude Code 在以下情况会自动使用 Skim：
 
 - 📖 文档: [docs/](docs/)
 - 💡 示例: [docs/examples.md](docs/examples.md)
-- 💬 讨论: [GitHub Discussions](https://github.com/luw2007/skim-mcp-server/discussions)
+- 💬 讨论: [GitHub Discussions](https://github.com/luw2007/skim-mcp/discussions)
 
 ## 🔄 更新日志
 

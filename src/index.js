@@ -340,7 +340,7 @@ async function findSkim() {
 
 const server = new Server(
 	{
-		name: "skim-mcp-server",
+		name: "skim-mcp",
 		version: CONFIG.VERSION,
 	},
 	{

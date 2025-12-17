@@ -31,7 +31,7 @@ startCommand:
       if (config.maxInputSize) env.SKIM_MAX_INPUT_SIZE = config.maxInputSize.toString();
       return {
         command: 'npx',
-        args: ['-y', 'skim-mcp-server'],
+        args: ['-y', 'skim-mcp'],
         env: env
       };
     }

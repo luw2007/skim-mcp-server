@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is the **Skim MCP Server** - a production-ready Model Context Protocol (MCP) server that exposes the Skim code transformation CLI to AI agents. It intelligently compresses code (60-95% token reduction) while preserving structure for LLM context optimization.
 
-**Note**: This project (luw2007/skim-mcp-server) wraps the upstream [Skim](https://github.com/dean0x/skim) project by dean0x.
+**Note**: This project (luw2007/skim-mcp) wraps the upstream [Skim](https://github.com/dean0x/skim) project by dean0x.
 
 ### Key Dependencies
 - **External CLI**: Requires the `skim` Rust binary (`rskim` package) - originally by dean0x, automatically installed via `scripts/install-skim.js`
